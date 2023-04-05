@@ -56,6 +56,7 @@ impl Lexer{
 
         while self.index  < line.len() {
             let mut curr : char = line.chars().nth(self.index).unwrap();
+
             if(curr == '+'){
                 self.tokens.push(Token::new(TokenType::PlusToken, self.index, self.index, String::from("+")));
                 self.next();
