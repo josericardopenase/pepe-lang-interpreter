@@ -1,6 +1,7 @@
 
 use colored::Colorize;
 #[derive(Debug)]
+#[derive(PartialEq)]
 pub enum TokenType{
     NumericToken,
     PlusToken,
@@ -12,11 +13,12 @@ pub enum TokenType{
 }
 
 
+#[derive(Debug)]
 pub struct Token{
-    token_type : TokenType,
-    init : usize,
-    end : usize,
-    val : String
+    pub token_type : TokenType,
+    pub init : usize,
+    pub end : usize,
+    pub val : String
 }
 
 impl Token{
@@ -27,7 +29,7 @@ impl Token{
 
 pub struct Lexer{
     index : usize,
-    tokens : Vec<Token>
+    pub tokens : Vec<Token>
 }
 
 impl Lexer{

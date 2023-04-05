@@ -42,7 +42,8 @@ impl Interpreter{
             self.read_command(&mut buffer);
 
             self.lexer.get_tokens(buffer);
-            self.lexer.to_string();
+
+            self.parser.parse(&mut self.lexer.tokens);
         }
     }
 

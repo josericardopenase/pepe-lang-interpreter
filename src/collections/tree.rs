@@ -1,5 +1,7 @@
 use std::fmt;
 
+
+#[derive(Clone)]
 pub struct Node<T>{
     pub value : T,
     pub children : Vec<Node<T>>
