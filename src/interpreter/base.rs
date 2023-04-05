@@ -11,13 +11,15 @@ use colored::Colorize;
  * 
  */
 pub struct Interpreter{
-    lexer : Lexer
+    lexer : Lexer,
+    parser: Parser
 }
 
 impl Interpreter{
     pub fn new() -> Interpreter{
         return Interpreter{
-            lexer: Lexer::new()
+            lexer: Lexer::new(),
+            parser: Parser::new()
         };
     }
 

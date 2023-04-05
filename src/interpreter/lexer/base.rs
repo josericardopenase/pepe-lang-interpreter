@@ -1,3 +1,5 @@
+
+use colored::Colorize;
 #[derive(Debug)]
 pub enum TokenType{
     NumericToken,
@@ -52,7 +54,11 @@ impl Lexer{
 
         self.reset();
 
-        //FIXME: ESTO NECESITA UN REFACTOR IMPORTANTE
+        //FIXME: ESTO NECESITA UN REFACTOR IMPORTANTE usando expresiones regulares
+        if line.trim() == ".exit"{
+            println!("{}", "Bye, bye :(".red());
+            std::process::exit(0);
+        }
 
         while self.index  < line.len() {
             let mut curr : char = line.chars().nth(self.index).unwrap();

@@ -1,11 +1,11 @@
 use std::fmt;
 
 pub struct Node<T>{
-    value : T,
-    children : Vec<Node<T>>
+    pub value : T,
+    pub children : Vec<Node<T>>
 }
 
-impl<T: fmt::Display> Node<T>{
+impl<T> Node<T>{
     pub fn new(value : T) -> Node<T>
     {
         return Node{
@@ -21,29 +21,44 @@ impl<T: fmt::Display> Node<T>{
     pub fn remove_node(&mut self, index : usize) -> (){
         self.children.remove(index);
     }
+}
 
-    fn get_tree_string(&self, prefix: &str) -> String {
-        let mut tree_str = format!("{}{}\n", prefix, self.value);
-        let child_prefix = format!("{}{}", prefix, "│   ");
-        let last_child_prefix = format!("{}{}", prefix, "└── ");
+impl<T: fmt::Display> Node<T>{
+    fn get_tree_string(&self, prefix: &str, is_last: bool) -> String {
+        let mut tree_str = String::new();
+        
+        if is_last {
+            tree_str += &format!("{}{}", prefix, "└── ");
+        } else {
+            tree_str += &format!("{}{}", prefix, "├── ");
+        }
+        
+        tree_str += &format!("{}\n", self.value);
 
         let num_children = self.children.len();
         for (i, child) in self.children.iter().enumerate() {
-            let child_prefix = if i == num_children - 1 {
-                last_child_prefix.clone()
+            let child_prefix = if is_last {
+                format!("{}{}", prefix, "    ")
             } else {
-                child_prefix.clone()
+                format!("{}{}", prefix, "│   ")
             };
-            tree_str += &format!("{}{}", child_prefix, child.get_tree_string(&prefix.replace("└──", "    ")));
+            
+            if i == num_children - 1 {
+                tree_str += &child.get_tree_string(&child_prefix, true);
+            } else {
+                tree_str += &child.get_tree_string(&child_prefix, false);
+            }
         }
 
         return tree_str;
     }
 
     pub fn to_string(&self) -> String {
-        return self.get_tree_string("");
+        return self.get_tree_string("", true);
     }
+
 }
+
 
 pub struct Tree<T>{
     pub root : Option<Node<T>>
