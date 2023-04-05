@@ -5,10 +5,7 @@ use interpreter::base::Interpreter;
 
 fn main() {
 
-    let itr = Interpreter::new();
-
+    let mut itr = Interpreter::new();
     itr.exec();
-
-
 
 }
